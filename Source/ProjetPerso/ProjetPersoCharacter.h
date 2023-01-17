@@ -3,6 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Sword_Weapon.h"
 #include "GameFramework/Character.h"
 #include "ProjetPersoCharacter.generated.h"
 
@@ -11,22 +12,22 @@ class AProjetPersoCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-		/** Camera boom positioning the camera behind the character */
-		UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		class USpringArmComponent* CameraBoom;
+	/** Camera boom positioning the camera behind the character */
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
+	class USpringArmComponent* CameraBoom;
 
 	/** Follow camera */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
-		class UCameraComponent* FollowCamera;
+	class UCameraComponent* FollowCamera;
+	virtual void BeginPlay() override;
 public:
 	AProjetPersoCharacter();
 
 	/** Base turn rate, in deg/sec. Other scaling may affect final turn rate. */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
-		float TurnRateGamepad;
+	float TurnRateGamepad;
 
 protected:
-
 	/** Called for forwards/backward input */
 	void MoveForward(float Value);
 
@@ -53,12 +54,14 @@ protected:
 	/** Handler for when a touch input stops. */
 	void TouchStopped(ETouchIndex::Type FingerIndex, FVector Location);
 
-	///////////// Call the life component 
 	//Life component 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Component, meta = (AllowPrivateAccess = "true"))
-		class ULifeComponent* lifeComponent;
+	class ULifeComponent* lifeComponent;
 
-	///////////
+	//Weapon
+	UPROPERTY(VisibleAnywhere, Category = Mesh, meta = (AllowPrivateAccess = "true"))
+	 ASword_Weapon* Sword;
+
 protected:
 	// APawn interface
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
@@ -73,6 +76,6 @@ public:
 	//rate to rotate with the mouse
 	UPROPERTY(EditAnywhere)
 	float MouseRate;
-	
-};
 
+private :
+};

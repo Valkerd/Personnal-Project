@@ -15,7 +15,7 @@ class PROJETPERSO_API ULifeComponent : public UActorComponent
 public:	
 	// Sets default values for this component's properties
 	ULifeComponent();
-	// Variables I can use for my player and my enemies
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int32 hP;
 	UPROPERTY(EditAnywhere)
@@ -31,7 +31,6 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-	//// function I create 
 	UFUNCTION(BlueprintCallable)
 	void LoseLife(int32 _hpToLose);
 	

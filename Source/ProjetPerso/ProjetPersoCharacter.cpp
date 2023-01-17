@@ -8,9 +8,24 @@
 #include "GameFramework/Controller.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "LifeComponent.h"
+#include "Sword_Weapon.h"
+#include "Sword_Weapon.h"
 #include "Kismet/GameplayStatics.h"
+#include "Tasks/GameplayTask_SpawnActor.h"
 //////////////////////////////////////////////////////////////////////////
 // AProjetPersoCharacter
+
+void AProjetPersoCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+	
+	//Attach the weapon to the socket
+	Sword = GetWorld()->SpawnActor<ASword_Weapon>(GetActorLocation(), GetActorRotation(), FActorSpawnParameters());
+	
+	//AttachToActor(GetWorld()->GetFirstPlayerController(), FAttachmentTransformRules::SnapToTargetNotIncludingScale,"Hand_l_Weapon");
+	Sword->AttachToActor(GetWorld()->GetFirstPlayerController()->GetPawn(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, "Hand_l_Weapon");
+}
 
 AProjetPersoCharacter::AProjetPersoCharacter()
 {
@@ -22,7 +37,7 @@ AProjetPersoCharacter::AProjetPersoCharacter()
 
 	// Don't rotate when the controller rotates. Let that just affect the camera.
 	bUseControllerRotationPitch = false;
-	bUseControllerRotationYaw = true;
+	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
 
 	// Configure character movement
@@ -49,10 +64,10 @@ AProjetPersoCharacter::AProjetPersoCharacter()
 	// Attach the camera to the end of the boom and let the boom adjust to match the controller orientation
 	FollowCamera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
 
-	//// Create a life component for the player character
 	//Life Component
 	lifeComponent = CreateDefaultSubobject<ULifeComponent>(TEXT("LIfeComponent"));
 	lifeComponent->hP = 50.f;
+	
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)

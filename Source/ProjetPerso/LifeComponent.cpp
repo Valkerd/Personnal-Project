@@ -26,8 +26,6 @@ void ULifeComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorC
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 }
 
-//// Code I create ////
-///// call of the fucntion i make 
 void ULifeComponent::LoseLife(int32 _hpToLose)
 {
 	hP -= _hpToLose;
@@ -46,4 +44,3 @@ float ULifeComponent::GetPercentHealth()
 {
 	return static_cast<float>(hP) / static_cast<float>(hPMAx);
 }
-////////////////
